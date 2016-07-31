@@ -15,8 +15,10 @@ superagent.get(jdUrl).end(function(err,sres){
 
     var data=[];
     $("#nav-2014 .dd .dorpdown-layer .item-sub").each(function(index,element){
-    	var head=[];
+        var head=[];
         var body=[];
+        var top=[];
+        var bottom=[];
 
     	var a=$(element).find(".item-channels a")
         a.each(function(index,ele){
@@ -24,7 +26,7 @@ superagent.get(jdUrl).end(function(err,sres){
         })
 
 
-        var b=$(element).find(".subitems dl")
+        var b=$(element).find(".subitems dl");
         b.each(function(index,ele){
         	var bold = '';
         	var normal =[]
@@ -42,7 +44,18 @@ superagent.get(jdUrl).end(function(err,sres){
 
         })
 
-        data.push({content:{head:head,body:body}});
+        var c=$(element).find(".item-brands img");
+        c.each(function(index,ele){
+            top.push($(ele).attr("src"));
+        });
+
+        var d=$(element).find(".item-promotions img");
+        d.each(function(index,ele){
+            bottom.push($(ele).attr("src"));
+        });
+
+        data.push({content:{head:head,body:body,top:top,bottom:bottom}});
+
     })
         console.log(JSON.stringify({data:data}));
 
